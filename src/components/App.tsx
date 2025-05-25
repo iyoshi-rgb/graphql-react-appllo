@@ -4,6 +4,7 @@ import CreateLink from './CreateLink'
 import Header from './Header'
 import LinkList from './LinkList'
 import Login from './Login'
+import Search from './Search'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             path="/login"
             element={<Login/>}
           />
+          <Route path="/search"element={<Search/>}/>
         </Routes>
       </div>
     </div>
