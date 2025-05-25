@@ -1,28 +1,33 @@
 import { gql } from "@apollo/client";
 
 export const FEED_QUERY = gql`
-{
-  feed {
-    id
-    links {
+  query FeedQuery(
+    $take: Int
+    $skip: Int
+    $orderBy: LinkOrderByInput
+  ) {
+    feed(take: $take, skip: $skip, orderBy: $orderBy) {
       id
-      createdAt
-      url
-      description
-      postedBy {
+      links {
         id
-        name
-      }
-      votes {
-        id
-        user {
+        createdAt
+        url
+        description
+        postedBy {
           id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
         }
       }
+      count
     }
   }
-}
-`
+`;
 
 export const FEED_SEARCH_QUERY = gql`
 query FeedSearchQuery($filter: String!) {
