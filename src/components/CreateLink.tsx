@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { CREATE_LINK_MUTATION } from "../graphql/mutation";
 import { useNavigate } from "react-router";
+import { FEED_QUERY } from "../graphql/query";
 
 
 
@@ -20,7 +21,21 @@ function CreateLink() {
     },
     onCompleted: () => {
       navigate('/')
-    }
+    },
+    update: (cache, { data: { post } }) => {
+      const data : any = cache.readQuery({
+        query: FEED_QUERY,
+      });
+
+      cache.writeQuery({
+        query: FEED_QUERY,
+        data: {
+          feed: {
+            links: [post, ...data.feed.links]
+          }
+        },
+      });
+    },
   });
   
   return (
